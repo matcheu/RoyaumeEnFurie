@@ -8,4 +8,4 @@ rm -f /etc/nginx/sites-enabled/default
 echo "Portier nginx sur le port ${PORT_PUBLIC}, serveur du jeu sur le port 7777"
 nginx
 # Si le serveur du jeu s'arrête, le conteneur s'arrête aussi : Render le redémarre tout seul.
-PORT=7777 exec godot --headless --path /app
+PORT=7777 ADRESSE_ECOUTE=127.0.0.1 exec godot --headless --path /app

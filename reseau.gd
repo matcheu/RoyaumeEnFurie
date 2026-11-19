@@ -38,7 +38,7 @@ const VERSION := 3
 const LETTRES := "ABCDEFGHJKLMNPQRSTUVWXYZ"
 ## Adresse du serveur en ligne (sera remplie quand le serveur sera installé sur Render).
 ## Pour les essais : lancer le jeu avec « -- --serveur-adresse ws://127.0.0.1 ».
-const ADRESSE_EN_LIGNE := ""
+const ADRESSE_EN_LIGNE := "wss://royaume-en-furie.onrender.com"
 
 var actif := false            # une partie en réseau est en cours (ou en préparation)
 var en_ligne := false         # connecté à un serveur dédié
@@ -106,7 +106,9 @@ static func adresse_websocket(adresse: String) -> String:
 
 func _ouvrir_serveur(port: int) -> Error:
 	var peer := WebSocketMultiplayerPeer.new()
-	var err := peer.create_server(port)
+	# Sur Render, le serveur n'écoute que « de l'intérieur » : c'est le portier nginx qui reçoit le public
+	var ecoute := OS.get_environment("ADRESSE_ECOUTE")
+	var err := peer.create_server(port, ecoute if ecoute != "" else "*")
 	if err != OK:
 		return err
 	multiplayer.multiplayer_peer = peer
