@@ -1,0 +1,18 @@
+; Serveur en ligne de « Royaume en Furie » : le central qui gère les salons du multijoueur.
+; Ce petit projet ne contient que le script réseau (copié depuis le jeu par outils/preparer_serveur.py).
+
+config_version=5
+
+[application]
+
+config/name="Royaume en Furie - serveur"
+run/main_scene="res://serveur.tscn"
+config/features=PackedStringArray("4.7")
+
+[autoload]
+
+Reseau="*res://reseau.gd"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
